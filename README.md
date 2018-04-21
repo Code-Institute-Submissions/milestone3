@@ -12,7 +12,7 @@ Below is a short step by step guide to how the game will work.
 
 1 - Enter a username & press 'LET'S GO' button <br>
 2 - Q1 appears on next page as an image <br>
-3 - User wnters answer in text input box and pressed 'GUESS' button <br>
+3 - User writes answer in text input box and presses 'GUESS' button <br>
 
 4 - If answer is correct:
 
