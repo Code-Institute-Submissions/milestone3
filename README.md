@@ -40,3 +40,16 @@ If answer is incorrect:
  - Bootstrap 4
  - Javascript / jQuery
  - Python & Flask
+
+<br>
+
+## Testing
+
+You will be able to find all my automated tests in the folder game-tdd. Any manual tests will also be clearly documented below.
+
+### Verifying and Adding Users to a .txt file
+
+The first set of tests can be found in add_username_test.py. For this, the test usernames were stored in a list. I was able to assertain that my tests were running correctly and I could pick up wether the username was left blank, wether it already existed in the list or wether it was unique.
+
+Once I was sure my tests were running correctly, I created a new file called verify_username_test.py. The three tests carried out are very simialer to the first set, but this time the test usernames were stored in a .txt file. I was also able to append new unique usernames to this file.
+
