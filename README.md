@@ -47,6 +47,8 @@ If answer is incorrect:
 
 You will be able to find all my automated tests in the folder game-tdd. Any manual tests will also be clearly documented below.
 
+There is also a file called python_console_game.py in this folder. Before introducing my code into flask I have decided to a simple version of the game that will work in the python console. As I test and create new functionality, I will add it to the simple game so I'm sure it works before things get too complicated with the web app.
+
 ### Verifying and Adding Users to a .txt file
 
 The first set of tests can be found in add_username_test.py. For this, the test usernames were stored in a list. I was able to assertain that my tests were running correctly and I could pick up wether the username was left blank, wether it already existed in the list or wether it was unique.
