@@ -45,13 +45,21 @@ If answer is incorrect:
 
 ## Testing
 
-You will be able to find all my automated tests in the folder game-tdd. Any manual tests will also be clearly documented below.
+You will be able to find all my automated tests in the folder **game-tdd**. Any manual tests will also be clearly documented below.
 
-There is also a file called python_console_game.py in this folder. Before introducing my code into flask I have decided to a simple version of the game that will work in the python console. As I test and create new functionality, I will add it to the simple game so I'm sure it works before things get too complicated with the web app.
+There is also a file called **python_console_game.py** in this folder. Before introducing my code into flask I have decided to a simple version of the game that will work in the python console. As I test and create new functionality, I will add it to the simple game so I'm sure it works before things get too complicated with the web app.
+
+<br>
 
 ### Verifying and Adding Users to a .txt file
 
-The first set of tests can be found in add_username_test.py. For this, the test usernames were stored in a list. I was able to assertain that my tests were running correctly and I could pick up wether the username was left blank, wether it already existed in the list or wether it was unique.
+The first set of tests can be found in **add_username_test.py**. For this, the test usernames were stored in a list. I was able to assertain that my tests were running correctly and I could pick up wether the username was left blank, wether it already existed in the list or wether it was unique.
 
-Once I was sure my tests were running correctly, I created a new file called verify_username_test.py. The three tests carried out are very simialer to the first set, but this time the test usernames were stored in a .txt file. I was also able to append new unique usernames to this file.
+Once I was sure my tests were running correctly, I created a new file called **verify_username_test.py**. The three tests carried out are very simialer to the first set, but this time the test usernames were stored in a .txt file. I was also able to append new unique usernames to this file.
 
+##### Manual Testing
+Once the tests passed I transferred the code from both **add_username_test** and **verify_username_test** to **python_console_game**. There I manually tested the code by running the game in the console. Although the fundamentals of the code were correct, I had to adjust it slightly so that it would work inside the other functions in the game.
+
+<br>
+
+### Looping Through the Questions
