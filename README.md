@@ -62,4 +62,21 @@ Once the tests passed I transferred the code from both **add_username_test** and
 
 <br>
 
-### Looping Through the Questions
+### Looping Through Questions
+In the file **questions_test.py**, I have taken some of the code from the walkthrough project: Quiz Game. The code I have used takes a .txt file and splits the lines into questions and answers. I have used the print() function to manually test that both questions and answers go into to their respective lists.
+
+Once I was sure this worked, I was able to bring the code into the **python_console_game.py** file so that it could loop through the questions and tell me if I was correct or not with my answers. I was also able to add a dynamic question_num function, that displayed the correct number of question being asked.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
