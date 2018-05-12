@@ -68,15 +68,13 @@ In the file **questions_test.py**, I have taken some of the code from the walkth
 Once I was sure this worked, I was able to bring the code into the **python_console_game.py** file so that it could loop through the questions and tell me if I was correct or not with my answers. I was also able to add a dynamic question_num function, that displayed the correct number of question being asked.
 
 
+<br>
+
+### Final Scoring
+In the file **scoring_test.py**, I have run five unit tests to calculate the final scoring of the game. The is the score that will be printed out after the game is completed. This code will then be placed into the **python_console_game.py** file. 
 
 
+<br>
 
-
-
-
-
-
-
-
-
-
+### Other Manual Tests
+You will find a few other files within the **game-tdd** folder that are not specifically documented about here. These are functions that were tested manually. I decided to put each function in its own file while I was working on it. Once I was happy it produced the results I needed, the code was then intergrated with the main game.
