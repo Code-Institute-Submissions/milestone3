@@ -26,7 +26,7 @@ If answer is incorrect:
             
 5 - If user presses 'PASS' button instead, navigate to next question:
 
-            - Every 3 passes will take 40 points of the final score
+            - Every 3 passes will take off 1 life
             
 
 6 - When all questions have been answered / passed on or user runs out of lives navigate to game-over page
