@@ -75,7 +75,7 @@ Once I was sure this worked, I was able to bring the code into the **python_cons
 <br>
 
 ### Final Scoring
-In the file **scoring_test.py**, I have run five unit tests to calculate the final scoring of the game. The is the score that will be printed out after the game is completed. This code will then be placed into the **python_console_game.py** file. 
+In the file **scoring_test.py**, I have run five unit tests to calculate the final scoring of the game. This is the score that will be printed out after the game is completed. This code will then be placed into the **python_console_game.py** file. After some consideration, I decided A better gaming experience would be to have every 3rd pass take off a life. Therefore I have adjusted the code in **python_console_game.py** to only calculate the final score using correct answers and number of lives left. I will also include a function that will count every time a question is passed and take off a life every third pass. 
 
 
 <br>
