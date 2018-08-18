@@ -15,6 +15,10 @@ def lives_left(x):
         if( i%3 == 0 ):
             lives -=1
             
+            if( lives == 0 ):
+                print ("You Have No Lives Left - GAME OVER")
+                return lives
+            
             print("You Have {0} Lives Left".format(lives))
     return lives
 
@@ -29,6 +33,7 @@ test_if_equal(lives_left(3),4)
 test_if_equal(lives_left(9),2)
 test_if_equal(lives_left(5),4)
 test_if_equal(lives_left(14),1)
+test_if_equal(lives_left(15),0)
 
 
 
