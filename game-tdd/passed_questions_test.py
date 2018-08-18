@@ -28,6 +28,8 @@ test_if_equal(lives_left(0),5)
 test_if_equal(lives_left(3),4)
 test_if_equal(lives_left(9),2)
 test_if_equal(lives_left(5),4)
+test_if_equal(lives_left(14),1)
+
 
 
 
