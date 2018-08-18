@@ -31,8 +31,20 @@ def add_username():
     
 # Show scores
 def show_scores(w,x,y,z):
-    print("Correct!\nYour Score Is > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
-    
+        if( w == "correct" ):
+            print("\nCorrect!\nYour Score Is > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
+        elif( w == "passed" ):
+            print("\nQuestion Passed!\nYour Score Is > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
+        else:
+            print("\nWrong!\nYour Score Is > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
+            
+            
+# Game Over
+def game_over(x,y,z):
+    print("\nGAME OVER!\n")
+    if( z == 0 ):
+        print("YOU RAN OUT OF LIVES!\n")
+    print("FINAL SCORE > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
 
 
 # This function will take questions from questions_test.txt and loop through them.
@@ -64,16 +76,24 @@ def questions():
         guess = input("Question {0} > {1}\n".format(question_num, question))
     
         while guess != answer and guess != "pass":
-            print("Wrong!\n")
+            lives -= 1
+            if( lives == 0 ):
+                game_over(questions_score,passed_on,lives)
+                return False
+            show_scores("wrong",questions_score,passed_on,lives)
             print("Your Incorrect Answer: {0}\n".format(guess))
             guess = input("Question {0} > {1}\n".format(question_num, question))
             
         if( guess == "pass" ):
             passed_on +=1
+            show_scores("passed",questions_score,passed_on,lives)
         else:
             questions_score += 50
             show_scores("correct",questions_score,passed_on,lives)
             
+    game_over(questions_score,passed_on,lives)
+            
+    
                 
             
             
