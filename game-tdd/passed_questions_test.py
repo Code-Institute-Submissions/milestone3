@@ -26,6 +26,7 @@ def test_if_equal(actual, expected):
 
 test_if_equal(lives_left(0),5)
 test_if_equal(lives_left(3),4)
+test_if_equal(lives_left(9),2)
 
 
 
