@@ -71,6 +71,13 @@ In the file **questions_test.py**, I have taken some of the code from the walkth
 
 Once I was sure this worked, I was able to bring the code into the **python_console_game.py** file so that it could loop through the questions and tell me if I was correct or not with my answers. I was also able to add a dynamic question_num function, that displayed the correct number of question being asked.
 
+<br>
+
+### Taking Off A Life Every 3 Passes
+I have conducted 6 tests for this section. The tests can be found in **passed_questions_test.py**. The Tests were created to verify that every third question the user passed on 1 life was taken off. I also added some print statements so that I could manually check that the function was doing what it was supposed to. By using a loop in my tests, I could simulate a user passing a question one at a time rather than just giving the function a number, using number modulo 3 and using the result to determine how many lives to take off. This made it as close to real life as I could.
+
+The functionality will be added to the **python_console_game.py** file.
+
 
 <br>
 
