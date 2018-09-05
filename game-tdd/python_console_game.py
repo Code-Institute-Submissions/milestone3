@@ -38,11 +38,18 @@ def show_scores(w,x,y,z):
         else:
             print("\nWrong!\nYour Score Is > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
             
+# Passed On
+def question_passed(x,y):
+    lives = y
+    if x%3 == 0:
+        lives -=1
+    return lives
+            
             
 # Game Over
 def game_over(x,y,z):
     print("\nGAME OVER!\n")
-    if( z == 0 ):
+    if z == 0:
         print("YOU RAN OUT OF LIVES!\n")
     print("FINAL SCORE > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
 
@@ -86,7 +93,12 @@ def questions():
             
         if( guess == "pass" ):
             passed_on +=1
+            lives = question_passed(passed_on,lives)
+            if( lives == 0 ):
+                game_over(questions_score,passed_on,lives)
+                return False
             show_scores("passed",questions_score,passed_on,lives)
+            
         else:
             questions_score += 50
             show_scores("correct",questions_score,passed_on,lives)
@@ -94,10 +106,7 @@ def questions():
     game_over(questions_score,passed_on,lives)
             
     
-                
             
-            
-    
 
 # Game functionality
 def game_loop():
