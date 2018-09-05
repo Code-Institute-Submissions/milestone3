@@ -25,7 +25,7 @@ def add_username():
         file.close()
         
         print("\nWelcome " + username + "\n")
-        return True
+        return username
     else: add_username()
     
     
@@ -52,6 +52,41 @@ def game_over(x,y,z):
     if z == 0:
         print("YOU RAN OUT OF LIVES!\n")
     print("FINAL SCORE > {0}\nQuestions Passed > {1}\nLives Left > {2}\n".format(x,y,z))
+    
+    
+# Save Username and Final Score to final_scores_test.txt
+def save_final_score(x,y):
+    with open("final_scores_test.txt", "a") as file:
+        file.write("{0}\n".format(x))
+        file.write("{0}\n".format(y))
+        
+        
+        
+# Show All Final Scores and Users
+def show_final_scores():
+    print("\nSCORE BOARD:\n")
+    users = []
+    scores = []
+    
+    # reads final_scores_test.txt and splits even lines into users and odd lines into scores
+    with open("final_scores_test.txt", "r") as file:
+        lines = file.read().splitlines()
+        
+    for i, text in enumerate(lines):
+        if i%2 == 0:
+            users.append(text)
+        else:
+            scores.append(text)
+        
+    #The zip() function gives a user and score tuple 
+    users_and_scores = zip(users, scores)
+    
+    for user, score in users_and_scores:
+        print("{0}-{1}\n".format(user, score))
+    
+
+
+    
 
 
 # This function will take questions from questions_test.txt and loop through them.
@@ -86,7 +121,7 @@ def questions():
             lives -= 1
             if( lives == 0 ):
                 game_over(questions_score,passed_on,lives)
-                return False
+                return questions_score
             show_scores("wrong",questions_score,passed_on,lives)
             print("Your Incorrect Answer: {0}\n".format(guess))
             guess = input("Question {0} > {1}\n".format(question_num, question))
@@ -96,7 +131,7 @@ def questions():
             lives = question_passed(passed_on,lives)
             if( lives == 0 ):
                 game_over(questions_score,passed_on,lives)
-                return False
+                return questions_score
             show_scores("passed",questions_score,passed_on,lives)
             
         else:
@@ -104,14 +139,18 @@ def questions():
             show_scores("correct",questions_score,passed_on,lives)
             
     game_over(questions_score,passed_on,lives)
+    return questions_score
             
     
             
 
 # Game functionality
 def game_loop():
-    add_username()
-    questions()
+    user = add_username()
+    final_score = questions()
+    save_final_score(user,final_score)
+    show_final_scores()
+    
         
 
 game_loop()
