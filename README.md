@@ -82,10 +82,14 @@ The functionality will be added to the **python_console_game.py** file.
 <br>
 
 ### Final Scoring
-In the file **scoring_test.py**, I have run five unit tests to calculate the final scoring of the game. This is the score that will be printed out after the game is completed. This code will then be placed into the **python_console_game.py** file. After some consideration, I decided A better gaming experience would be to have every 3rd pass take off a life. Therefore I have adjusted the code in **python_console_game.py** to only calculate the final score using correct answers and number of lives left. I will also include a function that will count every time a question is passed and take off a life every third pass. 
+In the file **scoring_test.py**, I have run five unit tests to calculate the final scoring of the game. This is the score that will be printed out after the game is completed. This code will then be placed into the **python_console_game.py** file. After some consideration, I decided A better gaming experience would be to have every 3rd pass take off a life. Therefore I have adjusted the code in **python_console_game.py** to only calculate the final score using correct answers and number of lives left. I will also include a function that will count every time a question is passed and take off a life every third pass.
+
+When the game ends completely, either by finishing all the questions or by running out of lives, the game prints out a list of all the users and their scores. This was achieved by adding the username and score to **final_scores_test.txt** in the same way a username is added. Once this happens, another function triggers that prints all the usernames and scores. This was achieved in the same way as the **questions()** function logic works.
 
 
 <br>
 
 ### Other Manual Tests
 You will find a few other files within the **game-tdd** folder that are not specifically documented about here. These are functions that were tested manually. I decided to put each function in its own file while I was working on it. Once I was happy it produced the results I needed, the code was then intergrated with the main game.
+
+After playing the game to conduct some manual tests, I noticed the **verify_username()** function was causing some problems. When I tried to add a username that already existed, I got the proper warning that the username was already taken. The problem was when I added a unique username after, it wasn't returned and therefore the score was saved in **final_scores_test.txt** with the username: none. I will try and fix this with a while loop.
