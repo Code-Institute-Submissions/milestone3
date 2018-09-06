@@ -18,15 +18,16 @@ def verify_username(username):
 def add_username():
     username = input("Enter a Username\n>")
     
-    # If the username is valid adds it to users_test.txt
-    if verify_username(username):
-        file = open("users_test.txt", "a")
-        file.write(username + "\n")
-        file.close()
+    # While username is not verified
+    while verify_username(username) == False:
+        username = input("Enter a Username\n>")
+
+    file = open("users_test.txt", "a")
+    file.write(username + "\n")
+    file.close()
         
-        print("\nWelcome " + username + "\n")
-        return username
-    else: add_username()
+    print("\nWelcome " + username + "\n")
+    return username
     
     
 # Show scores
