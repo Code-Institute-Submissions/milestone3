@@ -1,15 +1,73 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section class="main">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                  <h1>Flask Game</h1> 
-                </div>
+
+<section class="heading">
+  <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+              <h1 class="text-center">Welcome To Flask Game</h1>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<section class="hero">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <img src="{{ url_for('static', filename='img/hero1.jpg') }}" class="img-fluid mx-auto"></img>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-12">
+        <h3 class="text-center">Enter A Username To Begin</h3>
+      </div>
+    </div>
+        
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6">
+        <form novalidate method="POST" name="sentMessage" id="contactForm" class="needs-validation">
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label class="sr-only">Username</label>
+              <input type="text" class="form-control" placeholder="Username" name="name" id="name" required>
+              <p class="help-block text-danger invalid-feedback">A Username Is Required</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="sendMessageButton">Let's Go!</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
     
 
+{% endblock %}
+
+
+{% block javascript  %}
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 {% endblock %}
