@@ -1,0 +1,44 @@
+.heading {
+  background-color: #009788;
+  padding-top: 56px;
+}
+
+.hero {
+  height: calc(100vh - 168px);
+  background-color: #009788;
+}
+
+.hero img {
+  display: block;
+  width: 50%;
+}
+
+.hero h3 {
+  margin-top: 30px;
+  margin-bottom: 24px;
+}
+
+footer {
+  background-color: #343a40;
+  padding-top: 36px;
+}
+
+/*sm*/
+@media (min-width: 576px) {
+  
+}
+
+/*md*/
+@media (min-width: 786px) {
+  
+}
+
+/*lg*/
+@media (min-width: 992px) {
+
+}
+
+/*xl*/
+@media (min-width: 1200px) {
+  
+}
