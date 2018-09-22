@@ -118,37 +118,6 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, us
     username=username
     ) 
     
-
-
-# @app.route('/questions/wrong/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<username>', methods=["GET", "POST"])
-# def questions_wrong(question_num, questions_score, passed_on, lives, guess, username):
-#   questions = get_questions()
-#   q_num = int(question_num) - 1
-#   question = questions[0][q_num]
-#   answer = questions[1][q_num]
-  
-#   message = "'{0}', Was Incorrect".format(guess)
-#   lives = str(int(lives) - 1)
-#   bg = "#FF4D4C"
-  
-#   if request.method == "POST":
-#     guess = request.form["answer"]
-    
-#     url = check_guess(answer, guess, lives, question_num, questions_score, passed_on, username)
-    
-#     return url
-  
-#   return render_template(
-#     "questions.html",
-#     message=message,
-#     question=question,
-#     lives=lives,
-#     questionNum=question_num,
-#     questionsScore=questions_score,
-#     passed=passed_on,
-#     bg=bg,
-#     username=username
-#     ) 
     
     
 @app.route('/about')
