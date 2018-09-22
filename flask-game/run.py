@@ -31,6 +31,40 @@ def add_username():
         file.write(username + "\n")
         file.close()
       return username
+      
+#Gets Questions from questions.txt
+def get_questions():
+    questions = []
+    answers = []
+    
+    # reads questions_test.txt and splits even lines into questions and odd lines into answers
+    with open("data/questions.txt", "r") as file:
+        lines = file.read().splitlines()
+        
+    for i, text in enumerate(lines):
+        if i%2 == 0:
+            questions.append(text)
+        else:
+            answers.append(text)
+    
+    return questions, answers
+    
+# Checks Wether guess is correct, inncorect or is a pass
+def check_guess(answer, guess, lives, question_num, questions_score, passed_on, username):
+  
+  status = ""
+  def url(status):
+    return redirect("/questions/" + status + "/" + question_num + "/" + questions_score + "/" + passed_on + "/" + lives + "/" + guess + "/" + username)
+ 
+  if( guess == answer ):
+    status = "correct"
+    return url(status)
+  elif ( guess == "pass" ):
+    status = "pass"
+    return url(status)
+  else:
+    status = "wrong"
+    return url(status)
 
 
 @app.route('/' , methods=["GET", "POST"])
@@ -43,24 +77,80 @@ def index():
         elif user == "notUnique":
           userText = "Oops! That Username Is Already Taken"
         else:
-          return redirect("/questions/" + request.form["username"])
+          return redirect("/questions/1/0/0/5/" + request.form["username"])
     return render_template("index.html", user=userText)
+    
 
-@app.route('/questions/<username>')
-def questions(username):
-    return render_template("questions.html", username=username)    
+
+@app.route('/questions/<question_num>/<questions_score>/<passed_on>/<lives>/<username>', methods=["GET", "POST"])
+def questions(question_num, questions_score, passed_on, lives, username):
+  questions = get_questions()
+  q_num = int(question_num) - 1
+  question = questions[0][q_num]
+  answer = questions[1][q_num]
+  
+  if request.method == "POST":
+    guess = request.form["answer"]
+    
+    url = check_guess(answer, guess, lives, question_num, questions_score, passed_on, username)
+    
+    return url
+    
+  return render_template(
+    "questions.html",
+    question=question,
+    lives=lives,
+    questionNum=question_num,
+    questionsScore=questions_score,
+    passed=passed_on,
+    username=username
+    ) 
+    
+
+
+@app.route('/questions/wrong/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<username>', methods=["GET", "POST"])
+def questions_wrong(question_num, questions_score, passed_on, lives, guess, username):
+  questions = get_questions()
+  q_num = int(question_num) - 1
+  question = questions[0][q_num]
+  answer = questions[1][q_num]
+  
+  message = "'{0}', Was Incorrect".format(guess)
+  lives = str(int(lives) - 1)
+  bg = "#FF4D4C"
+  
+  if request.method == "POST":
+    guess = request.form["answer"]
+    
+    url = check_guess(answer, guess, lives, question_num, questions_score, passed_on, username)
+    
+    return url
+  
+  return render_template(
+    "questions.html",
+    message=message,
+    question=question,
+    lives=lives,
+    questionNum=question_num,
+    questionsScore=questions_score,
+    passed=passed_on,
+    bg=bg,
+    username=username
+    ) 
+    
     
 @app.route('/about')
 def about():
-    return render_template("about.html")
+  
+  return render_template("about.html")
     
 @app.route('/instructions')
 def instructions():
-    return render_template("instructions.html")
+  return render_template("instructions.html")
     
 @app.route('/contact')
 def contact():
-    return render_template("contact.html")
+  return render_template("contact.html")
     
 
 app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)
