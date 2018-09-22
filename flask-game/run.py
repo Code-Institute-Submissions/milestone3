@@ -49,6 +49,7 @@ def get_questions():
     
     return questions, answers
     
+    
 # Checks Wether guess is correct, inncorect or is a pass
 def check_guess(answer, guess, lives, question_num, questions_score, passed_on, username):
   
@@ -77,17 +78,26 @@ def index():
         elif user == "notUnique":
           userText = "Oops! That Username Is Already Taken"
         else:
-          return redirect("/questions/1/0/0/5/" + request.form["username"])
+          return redirect("/questions/0/1/0/0/5/0/" + request.form["username"])
     return render_template("index.html", user=userText)
     
 
 
-@app.route('/questions/<question_num>/<questions_score>/<passed_on>/<lives>/<username>', methods=["GET", "POST"])
-def questions(question_num, questions_score, passed_on, lives, username):
+@app.route('/questions/<status>/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<username>', methods=["GET", "POST"])
+def questions(status, question_num, questions_score, passed_on, lives, guess, username):
   questions = get_questions()
   q_num = int(question_num) - 1
   question = questions[0][q_num]
   answer = questions[1][q_num]
+  message = ""
+  bg =""
+  
+  if ( status == "wrong" ):
+    message = "'{0}', Was Incorrect".format(guess)
+    lives = str(int(lives) - 1)
+    bg = "#FF4D4C"
+    
+    
   
   if request.method == "POST":
     guess = request.form["answer"]
@@ -96,36 +106,6 @@ def questions(question_num, questions_score, passed_on, lives, username):
     
     return url
     
-  return render_template(
-    "questions.html",
-    question=question,
-    lives=lives,
-    questionNum=question_num,
-    questionsScore=questions_score,
-    passed=passed_on,
-    username=username
-    ) 
-    
-
-
-@app.route('/questions/wrong/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<username>', methods=["GET", "POST"])
-def questions_wrong(question_num, questions_score, passed_on, lives, guess, username):
-  questions = get_questions()
-  q_num = int(question_num) - 1
-  question = questions[0][q_num]
-  answer = questions[1][q_num]
-  
-  message = "'{0}', Was Incorrect".format(guess)
-  lives = str(int(lives) - 1)
-  bg = "#FF4D4C"
-  
-  if request.method == "POST":
-    guess = request.form["answer"]
-    
-    url = check_guess(answer, guess, lives, question_num, questions_score, passed_on, username)
-    
-    return url
-  
   return render_template(
     "questions.html",
     message=message,
@@ -137,6 +117,38 @@ def questions_wrong(question_num, questions_score, passed_on, lives, guess, user
     bg=bg,
     username=username
     ) 
+    
+
+
+# @app.route('/questions/wrong/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<username>', methods=["GET", "POST"])
+# def questions_wrong(question_num, questions_score, passed_on, lives, guess, username):
+#   questions = get_questions()
+#   q_num = int(question_num) - 1
+#   question = questions[0][q_num]
+#   answer = questions[1][q_num]
+  
+#   message = "'{0}', Was Incorrect".format(guess)
+#   lives = str(int(lives) - 1)
+#   bg = "#FF4D4C"
+  
+#   if request.method == "POST":
+#     guess = request.form["answer"]
+    
+#     url = check_guess(answer, guess, lives, question_num, questions_score, passed_on, username)
+    
+#     return url
+  
+#   return render_template(
+#     "questions.html",
+#     message=message,
+#     question=question,
+#     lives=lives,
+#     questionNum=question_num,
+#     questionsScore=questions_score,
+#     passed=passed_on,
+#     bg=bg,
+#     username=username
+#     ) 
     
     
 @app.route('/about')
