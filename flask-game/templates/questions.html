@@ -2,42 +2,58 @@
 
 {% block content %}
 
-<section class="heading">
+<section class="heading" style="background-color:{{ bg }}">
   <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-              <h1 class="text-center">Questions</h1>
+            <div class="col-4">
+              <h1 class="text-center">Q{{ questionNum }}</h1>
+            </div>
+            
+            <div class="col-4">
+              <h2 class="text-center">{{ lives }}</h2>
+            </div>
+            
+            <div class="col-4">
+              <h3 class="text-center">Score<br>{{ questionsScore }}</h3>
             </div>
         </div>
     </div>
 </section>
 
-<section class="hero">
+<section class="question">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <img src="{{ url_for('static', filename='img/hero1.jpg') }}" class="img-fluid mx-auto">
+        
       </div>
     </div>
     
     <div class="row">
-      <div class="col-sm-12">
-        <h3 class="text-center">{{ userText }}</h3>
+      <div class="col-sm-6 mx-auto text-center">
+        <p><strong>{{ message }}</strong></p>
+        
+        <p>{{ question }}</p>
       </div>
     </div>
         
     <div class="row justify-content-center">
-      <div class="col-sm-12 col-md-6">
-        <form novalidate method="POST" name="userForm" id="userForm" class="needs-validation">
+      <div class="col-sm-12 col-md-6 form-wrapper">
+        <form novalidate method="POST" name="answerForm" id="answerForm">
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <label class="sr-only">Username</label>
-              <input type="text" class="form-control" placeholder="Username" name="username" id="name" required>
-              <p class="help-block text-danger invalid-feedback">A Username Is Required</p>
+              <label class="sr-only">Answer</label>
+              <input type="text" class="form-control" placeholder="Your Answer" name="answer" id="answer">
             </div>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="sendMessageButton">Let's Go!</button>
+            <button type="submit" class="btn btn-primary">GUESS</button>
+          </div>
+        </form>
+        
+        <form method="POST" name="passForm" id="passForm">
+            <input type="text" name="answer" id="pass" value="pass" hidden>
+            <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-pass">PASS ({{ passed }})</button>
           </div>
         </form>
       </div>
