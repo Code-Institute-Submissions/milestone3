@@ -51,21 +51,44 @@ def get_questions():
     
     
 # Checks Wether guess is correct, inncorect or is a pass
-def check_guess(answer, guess, lives, question_num, questions_score, passed_on, username):
+def check_guess(answer, guess, lives, question_num, questions_score, passed_on, btn, bg, username):
   
   status = ""
-  def url(status):
-    return redirect("/questions/" + status + "/" + question_num + "/" + questions_score + "/" + passed_on + "/" + lives + "/" + guess + "/" + username)
+  def url(status, question_num, passed_on, btn, bg, lives):
+    return redirect("/questions/" + status + "/" + question_num + "/" + questions_score + "/" + passed_on + "/" + lives + "/" + guess + "/" + btn + "/" + bg + "/" + username)
  
   if( guess == answer ):
     status = "correct"
-    return url(status)
+    btn = "primary"
+    bg = "0"
+    return url(status, question_num, passed_on, btn, bg, lives)
+    
+    
   elif ( guess == "pass" ):
     status = "pass"
-    return url(status)
+    question_num = str(int(question_num) + 1)
+    passed_on = str(int(passed_on) + 1)
+    
+    if ( int(passed_on) == 2 ):
+      btn = "warning"
+      
+    elif ( int(passed_on) == 3 ):
+      lives = str(int(lives) - 1)
+      passed_on = "0"
+      btn = "primary"
+      bg = "FF4D4C"
+      
+    else:
+      btn = "primary"
+      bg = "0"
+    return url(status, question_num, passed_on, btn, bg, lives)
+    
+    
   else:
     status = "wrong"
-    return url(status)
+    lives = str(int(lives) - 1)
+    bg = "FF4D4C"
+    return url(status, question_num, passed_on, btn, bg, lives)
 
 
 @app.route('/' , methods=["GET", "POST"])
@@ -78,31 +101,30 @@ def index():
         elif user == "notUnique":
           userText = "Oops! That Username Is Already Taken"
         else:
-          return redirect("/questions/0/1/0/0/5/0/" + request.form["username"])
+          return redirect("/questions/0/1/0/0/5/0/primary/0/" + request.form["username"])
     return render_template("index.html", user=userText)
     
 
 
-@app.route('/questions/<status>/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<username>', methods=["GET", "POST"])
-def questions(status, question_num, questions_score, passed_on, lives, guess, username):
+@app.route('/questions/<status>/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<btn>/<bg>/<username>', methods=["GET", "POST"])
+def questions(status, question_num, questions_score, passed_on, lives, guess, btn, bg, username):
   questions = get_questions()
   q_num = int(question_num) - 1
   question = questions[0][q_num]
   answer = questions[1][q_num]
   message = ""
-  bg =""
   
   if ( status == "wrong" ):
     message = "'{0}', Was Incorrect".format(guess)
-    lives = str(int(lives) - 1)
-    bg = "#FF4D4C"
+  elif ( status == "pass" ):
+    message = "Question Passed"
     
     
-  
+    
   if request.method == "POST":
     guess = request.form["answer"]
     
-    url = check_guess(answer, guess, lives, question_num, questions_score, passed_on, username)
+    url = check_guess(answer, guess, lives, question_num, questions_score, passed_on, btn, bg, username)
     
     return url
     
@@ -115,6 +137,7 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, us
     questionsScore=questions_score,
     passed=passed_on,
     bg=bg,
+    btn=btn,
     username=username
     ) 
     
