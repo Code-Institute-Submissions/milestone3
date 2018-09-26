@@ -54,14 +54,16 @@ def get_questions():
 def check_guess(answer, guess, lives, question_num, questions_score, passed_on, btn, bg, username):
   
   status = ""
-  def url(status, question_num, passed_on, btn, bg, lives):
+  def url(status, question_num, questions_score, passed_on, btn, bg, lives):
     return redirect("/questions/" + status + "/" + question_num + "/" + questions_score + "/" + passed_on + "/" + lives + "/" + guess + "/" + btn + "/" + bg + "/" + username)
  
   if( guess == answer ):
+    questions_score = str(int(questions_score) + 50)
+    question_num = str(int(question_num) + 1)
     status = "correct"
     btn = "primary"
     bg = "0"
-    return url(status, question_num, passed_on, btn, bg, lives)
+    return url(status, question_num, questions_score, passed_on, btn, bg, lives)
     
     
   elif ( guess == "pass" ):
@@ -81,14 +83,14 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
     else:
       btn = "primary"
       bg = "0"
-    return url(status, question_num, passed_on, btn, bg, lives)
+    return url(status, question_num, questions_score, passed_on, btn, bg, lives)
     
     
   else:
     status = "wrong"
     lives = str(int(lives) - 1)
     bg = "FF4D4C"
-    return url(status, question_num, passed_on, btn, bg, lives)
+    return url(status, question_num, questions_score, passed_on, btn, bg, lives)
 
 
 @app.route('/' , methods=["GET", "POST"])
