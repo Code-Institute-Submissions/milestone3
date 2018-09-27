@@ -50,6 +50,17 @@ def get_questions():
     return questions, answers
     
     
+# Checks How many questions are left
+def check_question_num(question_num):
+    questions = get_questions()
+    questions_len = len(questions[0])
+    
+    if ( int(question_num) > questions_len ):
+      return True
+    else:
+      return False
+   
+   
 # Checks Wether guess is correct, inncorect or is a pass
 def check_guess(answer, guess, lives, question_num, questions_score, passed_on, btn, bg, username):
   
@@ -60,17 +71,27 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
   if( guess == answer ):
     questions_score = str(int(questions_score) + 50)
     question_num = str(int(question_num) + 1)
+    if (check_question_num(question_num)):
+      question_num = str(int(question_num) - 1)
+      status = "game-over"
+      bg = "4cff95"
+      return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+      
     status = "correct"
-    btn = "primary"
-    bg = "0"
+    bg = "4cff95"
     return url(status, question_num, questions_score, passed_on, btn, bg, lives)
     
     
   elif ( guess == "pass" ):
     status = "pass"
     question_num = str(int(question_num) + 1)
+    if (check_question_num(question_num)):
+      question_num = str(int(question_num) - 1)
+      status = "game-over"
+      bg = "0"
+      return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+      
     passed_on = str(int(passed_on) + 1)
-    
     if ( int(passed_on) == 2 ):
       btn = "warning"
       
@@ -120,6 +141,15 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
     message = "'{0}', Was Incorrect".format(guess)
   elif ( status == "pass" ):
     message = "Question Passed"
+  elif ( status == "game-over" ):
+    return render_template(
+    "game-over.html",
+    lives=lives,
+    questionNum=question_num,
+    questionsScore=questions_score,
+    bg=bg,
+    username=username
+    )
     
     
     
@@ -131,7 +161,7 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
     return url
     
   return render_template(
-    "questions.html",
+    "question.html",
     message=message,
     question=question,
     lives=lives,
