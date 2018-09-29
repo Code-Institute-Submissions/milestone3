@@ -65,7 +65,7 @@ def check_question_num(question_num):
 def check_guess(answer, guess, lives, question_num, questions_score, passed_on, btn, bg, username):
   
   status = ""
-  def url(status, question_num, questions_score, passed_on, btn, bg, lives):
+  def url(status, question_num, questions_score, passed_on, btn, bg, guess, lives):
     return redirect("/questions/" + status + "/" + question_num + "/" + questions_score + "/" + passed_on + "/" + lives + "/" + guess + "/" + btn + "/" + bg + "/" + username)
  
   if( guess == answer ):
@@ -75,11 +75,11 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
       question_num = str(int(question_num) - 1)
       status = "game-over"
       bg = "4cff95"
-      return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+      return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
       
     status = "correct"
     bg = "4cff95"
-    return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+    return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     
     
   elif ( guess == "pass" ):
@@ -89,7 +89,7 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
       question_num = str(int(question_num) - 1)
       status = "game-over"
       bg = "0"
-      return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+      return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
       
     passed_on = str(int(passed_on) + 1)
     if ( int(passed_on) == 2 ):
@@ -101,7 +101,7 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
         question_num = str(int(question_num) - 1)
         bg = "FF4D4C"
         status = "game-over"
-        return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+        return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
         
       passed_on = "0"
       btn = "primary"
@@ -111,7 +111,14 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
     else:
       btn = "primary"
       bg = "0"
-    return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+    return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
+    
+  
+  elif ( guess == "" ):
+    status = "blank"
+    guess = "0"
+    bg = "0s"
+    return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     
     
   else:
@@ -120,9 +127,9 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
     if ( int(lives) == 0 ):
         bg = "FF4D4C"
         status = "game-over"
-        return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+        return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     bg = "FF4D4C"
-    return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+    return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
 
 
 def save_final_scores(username, questions_score):
@@ -181,7 +188,10 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
   answer = questions[1][q_num]
   message = ""
   
-  if ( status == "wrong" ):
+  
+  if ( status == "blank" ):
+    message = "Please submit a guess or press pass to continue"
+  elif ( status == "wrong" ):
     message = "'{0}', Was Incorrect".format(guess)
   elif ( status == "pass" ):
     message = "Question Passed"
