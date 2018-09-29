@@ -149,7 +149,13 @@ def show_final_scores():
     #The zip() function gives a user and score tuple 
     users_and_scores = zip(users, scores)
     
-    return users_and_scores
+    # The following code was produced with the help of PythonCentral (https://www.pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/)
+    def getKey(item):
+      return item[1]
+      
+    users_and_scores_sorted = sorted(users_and_scores, key=getKey, reverse=True)
+      
+    return users_and_scores_sorted
 
 
 @app.route('/' , methods=["GET", "POST"])
