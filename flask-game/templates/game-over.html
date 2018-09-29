@@ -1,17 +1,41 @@
-{% extends 'questions.html' %}
-
-{% block inner %}
-  <section class="question">
+{% extends 'questions.html' %} {% block inner %}
+<section class="question">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        
+
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-sm-6 mx-auto text-center">
         <h1>GAME OVER!</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-10 mx-auto">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            {% for user, userScore in userScores %}
+            {% if user == username %}
+            <tr class="table-primary">
+            {% else %}
+            <tr>
+            {% endif %}
+              <th scope="row" class="light">{{ user }}</th>
+              <td>{{ userScore }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
