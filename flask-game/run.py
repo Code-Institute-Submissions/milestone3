@@ -97,9 +97,16 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
       
     elif ( int(passed_on) == 3 ):
       lives = str(int(lives) - 1)
+      if ( int(lives) == 0 ):
+        question_num = str(int(question_num) - 1)
+        bg = "FF4D4C"
+        status = "game-over"
+        return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+        
       passed_on = "0"
       btn = "primary"
       bg = "FF4D4C"
+      
       
     else:
       btn = "primary"
@@ -110,8 +117,39 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
   else:
     status = "wrong"
     lives = str(int(lives) - 1)
+    if ( int(lives) == 0 ):
+        bg = "FF4D4C"
+        status = "game-over"
+        return url(status, question_num, questions_score, passed_on, btn, bg, lives)
     bg = "FF4D4C"
     return url(status, question_num, questions_score, passed_on, btn, bg, lives)
+
+
+def save_final_scores(username, questions_score):
+  with open("data/final_scores.txt", "a") as file:
+    file.write("{0}\n".format(username))
+    file.write("{0}\n".format(questions_score))
+    
+    
+# Show All Final Scores and Users    
+def show_final_scores():
+    users = []
+    scores = []
+    
+    # reads final_scores.txt and splits even lines into users and odd lines into scores
+    with open("data/final_scores.txt", "r") as file:
+        lines = file.read().splitlines()
+        
+    for i, text in enumerate(lines):
+        if i%2 == 0:
+            users.append(text)
+        else:
+            scores.append(text)
+        
+    #The zip() function gives a user and score tuple 
+    users_and_scores = zip(users, scores)
+    
+    return users_and_scores
 
 
 @app.route('/' , methods=["GET", "POST"])
@@ -142,13 +180,17 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
   elif ( status == "pass" ):
     message = "Question Passed"
   elif ( status == "game-over" ):
+    save_final_scores(username, questions_score)
+    userScores = show_final_scores()
     return render_template(
     "game-over.html",
     lives=lives,
     questionNum=question_num,
-    questionsScore=questions_score,
+    score=questions_score,
     bg=bg,
-    username=username
+    username=username,
+    questionsAnswers=zip(questions[0],questions[1]),
+    userScores=userScores
     )
     
     
@@ -166,7 +208,7 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
     question=question,
     lives=lives,
     questionNum=question_num,
-    questionsScore=questions_score,
+    score=questions_score,
     passed=passed_on,
     bg=bg,
     btn=btn,
