@@ -158,7 +158,7 @@ def show_final_scores():
     
     # The following code was produced with the help of PythonCentral (https://www.pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/)
     def getKey(item):
-      return item[1]
+      return int(item[1])
       
     users_and_scores_sorted = sorted(users_and_scores, key=getKey, reverse=True)
       
@@ -176,7 +176,7 @@ def index():
           userText = "Oops! That Username Is Already Taken"
         else:
           return redirect("/questions/0/1/0/0/5/0/primary/0/" + request.form["username"])
-    return render_template("index.html", user=userText)
+    return render_template("index.html", userText=userText)
     
 
 
