@@ -13,7 +13,7 @@ def verify_username(username):
         users = file.read().splitlines()
         
     for user in users:
-        if user == username:
+        if user.lower() == username.lower():
             return "notUnique"
     return True
 
@@ -68,7 +68,7 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
   def url(status, question_num, questions_score, passed_on, btn, bg, guess, lives):
     return redirect("/questions/" + status + "/" + question_num + "/" + questions_score + "/" + passed_on + "/" + lives + "/" + guess + "/" + btn + "/" + bg + "/" + username)
  
-  if( guess == answer ):
+  if( guess.lower() == answer.lower() ):
     questions_score = str(int(questions_score) + 50)
     question_num = str(int(question_num) + 1)
     if (check_question_num(question_num)):

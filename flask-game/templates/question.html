@@ -4,16 +4,14 @@
   <section class="question">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        
+      <div class="col-sm-12 text-center">
+        <img src="{{ url_for('static', filename='img/questions/question-' + question + '.png') }}" class="img-fluid question-img" min-height="400px">
       </div>
     </div>
     
     <div class="row">
       <div class="col-sm-6 mx-auto text-center">
         <p><strong>{{ message }}</strong></p>
-        
-        <p>{{ question }} <br> {{ length }}</p>
       </div>
     </div>
         
