@@ -130,14 +130,34 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
         return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     bg = "FF4D4C"
     return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
+    
 
-
+# Add username and score to final_scores.txt  
+def check_final_scores(username):
+  
+  # open final_scores.txt and check wether the username is already there
+  users = []
+  with open("data/final_scores.txt", "r") as file:
+    lines = file.read().splitlines()
+      
+  for i, text in enumerate(lines):
+    if i%2 == 0:
+      users.append(text)
+        
+  for user in users:
+    if user.lower() == username.lower():
+      return False
+      
+  return True
+      
+      
+#save final score and username in final_scores.txt
 def save_final_scores(username, questions_score):
   with open("data/final_scores.txt", "a") as file:
     file.write("{0}\n".format(username))
     file.write("{0}\n".format(questions_score))
-    
-    
+      
+  
 # Show All Final Scores and Users    
 def show_final_scores():
     users = []
@@ -196,7 +216,10 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
   elif ( status == "pass" ):
     message = "Question Passed"
   elif ( status == "game-over" ):
-    save_final_scores(username, questions_score)
+    
+    if check_final_scores(username) :
+      save_final_scores(username, questions_score)
+      
     userScores = show_final_scores()
     return render_template(
     "game-over.html",
