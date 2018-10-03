@@ -10,11 +10,11 @@
             </div>
             
             <div class="col-4 heart">
-              <h2 class="text-center">{{ lives }}</h2>
+              <h2 class="text-center life"><span>{{ lives }}<span class="minus">-1</span></span></h2>
             </div>
             
             <div class="col-4">
-              <h3 class="text-center score">Score<br>{{ score }}</h3>
+              <h3 class="text-center score"><span>Score<br>{{ score }} <span class="plus">+50</span></span></h3>
             </div>
         </div>
     </div>
@@ -29,5 +29,29 @@
 
 
 {% block javascript  %}
+<script>
+  function changeColor() {
+    $('.heading').css({"background-color": "transparent"});
+  }
+  
+  function moveScore() {
+    $('.plus').addClass('move-score');
+  }
+  
+  function moveLife() {
+    $('.minus').addClass('move-life');
+  }
+  
+  setTimeout (changeColor, 1250);
+  
+  var bg = {{ bg | tojson }};
+  
+  if ( bg == "4cff95" ) {
+    setTimeout ( moveScore, 300 );
+  } else if ( bg == "FF4D4C" ) {
+    setTimeout ( moveLife, 300 );
+  }
 
+  
+</script>
 {% endblock %}

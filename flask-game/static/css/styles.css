@@ -1,3 +1,7 @@
+body {
+ background-color: #009788;
+}
+
 h1 {
  font-size: 30px;
 }
@@ -19,13 +23,85 @@ h3 {
  margin-top: -12px;
 }
 
-.heart h2 {
+.life {
  margin-top: 26px;
+}
+
+.life span {
+ position: relative;
+}
+
+.life .minus {
+ position: absolute;
+ opacity: 0;
 }
 
 .score {
  font-size: 20px;
 }
+
+.score span {
+ position: relative;
+}
+
+.score .plus {
+ position: absolute;
+ opacity: 0;
+}
+
+.move-score {
+ animation-duration: 1s;
+ animation-name: moveScore;
+}
+
+.move-life {
+ animation-duration: 1s;
+ animation-name: moveLife;
+}
+
+
+
+@keyframes moveScore {
+  from {
+    left: -172px;
+    top: 137px;
+    opacity: 1;
+  }
+  
+  75% {
+   opacity: 1;
+  }
+
+  to {
+    left: 0px;
+    top: 0px;
+    opacity: 0;
+  }
+}
+
+
+@keyframes moveLife {
+  from {
+    left: -13px;
+    top: 0px;
+    opacity: 0;
+  }
+  
+  20% {
+   opacity: 1
+  }
+  
+  75% {
+   opacity: 1;
+  }
+
+  to {
+    left: -122px;
+    top: -86px;
+    opacity: 0;
+  }
+}
+
 
 .navbar-brand small {
  color: rgba(255, 255, 255, .5);
@@ -33,7 +109,8 @@ h3 {
 
 .heading {
  background-color: #009788;
- padding-top: 20px;
+ padding: 20px 0 10px;
+ transition: all 500ms ease-in-out;
 }
 
 .hero,
