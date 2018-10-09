@@ -265,9 +265,13 @@ def about():
 def instructions():
   return render_template("instructions.html")
     
-@app.route('/contact')
-def contact():
-  return render_template("contact.html")
+@app.route('/leaderboard')
+def leaderboard():
+  userScores = show_final_scores()
+  return render_template(
+  "leaderboard.html",
+  userScores=userScores
+  )
     
 
 app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)

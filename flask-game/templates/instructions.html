@@ -1,11 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section class="main">
+    <section class="info">
         <div class="container">
+
+            
             <div class="row">
-                <div class="col-md-12">
-                  <h1>Flask Game - Instructions</h1> 
+                <div class="col-sm-10 mx-auto">
+                    <h2>The Rules Are Simple:</h2>
+                    <p>After you enter a unique username, you will be presented with a pictorial puzzle that represents a common phrase.</p>
+                    <p>You have three options: Guess the phrase correctly. Get it wrong. Or pass on it all together.</p>
+                    
+                    <br>
+                    
+                    <h3>If You Answer Correctly:</h3>
+                    <p>Good Job! 50 points will be added to your score. You will move on to the next puzzle.</p>
+                    
+                    <br>
+                    
+                    <h3>If You Get It Wrong:</h3>
+                    <p>Oops! You will lose 1 life. Remember you only have 5!</p>
+                    <p>You will remain on this puzzle until you either get it right, pass on it or lose all your lives trying to guess it.</p>
+                    
+                    <br>
+                    
+                    <h3>If You Pass:</h3>
+                    <p>You will move on to the next question.</p>
+                    <p>You won't gain any points. But be careful, every three passes will result in a life being lost.</p>
+                    
+                    <br>
+                    
+                    <h3>How The Game Ends:</h3>
+                    <p>If you lose all your lives or make it to the end of the quiz</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <hr>
+                    <h4>Other Info</h4>
+                    <p>When entering your guess, using any punctuation marks will result in a wrong answer even if the phrase is correct.</p>
                 </div>
             </div>
         </div>
