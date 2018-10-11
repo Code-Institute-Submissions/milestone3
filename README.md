@@ -4,7 +4,7 @@ Phil Surgenor - Milestone Project 3
 <br>
 
 ## Practical Python
-[visit the project website here](https://philsurgenor.github.io/milestone3/)
+[visit the project website here](https://guess-the-phrase.herokuapp.com/)
 
 For this project, I decided to build a game called 'Guess The Phrase' (working title). 
 
