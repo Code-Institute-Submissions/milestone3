@@ -255,12 +255,6 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
     ) 
     
     
-    
-@app.route('/about')
-def about():
-  
-  return render_template("about.html")
-    
 @app.route('/instructions')
 def instructions():
   return render_template("instructions.html")
