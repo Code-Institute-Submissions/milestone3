@@ -11,6 +11,14 @@ h3 {
 }
 
 
+em a {
+    color: #fff;
+}
+
+em a:hover, em a:focus {
+    color: #fff;
+}
+
 .num {
  font-size: 36px;
 }
