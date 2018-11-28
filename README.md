@@ -36,6 +36,16 @@ If answer is incorrect:
 
 <br>
 
+## UX
+
+In this project it was paramount the user experience didn't affect the users ability to play the game. With any project, it is important to have a good user experience, but when it is a game it becomes even more important. I wanted it to have a simple UI, you can see from the wireframes the main game area consists of two buttons and a text input. I added the simple animations to give feedback to the user that something had changed.
+
+After letting others play the game I realised the rules were not as obvious as I would of liked. To remedy this I added a link on the landing page to the instructions.
+
+Overall I think the game plays well and achieves the goal it was made for.
+
+<br>
+
 ## Technologies
 
  - Balsamiq Mockups
@@ -93,3 +103,19 @@ When the game ends completely, either by finishing all the questions or by runni
 You will find a few other files within the **game-tdd** folder that are not specifically documented about here. These are functions that were tested manually. I decided to put each function in its own file while I was working on it. Once I was happy it produced the results I needed, the code was then intergrated with the main game.
 
 After playing the game to conduct some manual tests, I noticed the **verify_username()** function was causing some problems. When I tried to add a username that already existed, I got the proper warning that the username was already taken. The problem was when I added a unique username after, it wasn't returned and therefore the score was saved in **final_scores_test.txt** with the username: none. I will try and fix this with a while loop. After replacing **If Statement** with **While Loop** the problem was fixed.
+
+<br>
+
+### Deployment
+There are a number of steps that needed to be taken to deploy the web app.
+
+The first step was to make sure all the files were in the correct folder structure. I created a requirements.txt file using the terminal. As this app is deployed to Heroku I needed to include a Procfile.
+When all the files were uploaded to Heroku, I had to start a dyno. The last step was to add two config variables, one for PORT and one For IP.
+
+I then went to the url of the app: [visit the project website here](https://guess-the-phrase.herokuapp.com/) to test it. After playing the game with different outcomes I was confident it was working properly.
+
+
+<br>
+
+### Credits
+The questions were taken from: ... - I redesigned them in photoshop so they fitted the games aesthetics.
