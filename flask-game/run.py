@@ -3,6 +3,14 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+#####################
+# USERNAME SECTION #
+###################
+
+# This section takes the input from the landing page and checks it against usernames saved in the users.txt file
+# This keeps the score bord tidy as you can have repeat usernames
+# It also means it is harder to cheat as you can't have another go with the same username
+
 # Check wether username given is blank, already taken or valid
 def verify_username(username):
     if username == "":
@@ -32,6 +40,14 @@ def add_username():
         file.close()
       return username
       
+###############################################################
+
+
+
+#####################
+# QUESTIONS SECTION #
+###################
+  
 #Gets Questions from questions.txt
 def get_questions():
     questions = []
@@ -59,18 +75,38 @@ def check_question_num(question_num):
       return True
     else:
       return False
-   
+      
+###############################################################
+
+
+
+
+################################
+# QUESTION AND ANSWER SECTION #
+###############################
+
+# This section is where most of the logic happens
+# The check_guess function takes in 9 arguments
+
    
 # Checks Wether guess is correct, inncorect or is a pass
 def check_guess(answer, guess, lives, question_num, questions_score, passed_on, btn, bg, username):
   
   status = ""
+  
+  # This function is used to construct the url that is then passed back to the question function
   def url(status, question_num, questions_score, passed_on, btn, bg, guess, lives):
     return redirect("/questions/" + status + "/" + question_num + "/" + questions_score + "/" + passed_on + "/" + lives + "/" + guess + "/" + btn + "/" + bg + "/" + username)
  
+  # If the guess is correct the following happens
+  # the .lower() and .replace() is used to strip the spaces and make the user input lowercase
+  # This means the question will match the answer even if they use capital letters
+  # Most mobile phones will give a capital letter when typing in a text field
   if( guess.replace(" ", "").lower() == answer.replace(" ", "").lower() ):
     questions_score = str(int(questions_score) + 50)
     question_num = str(int(question_num) + 1)
+    
+    # Checks if all the question have been asked
     if (check_question_num(question_num)):
       question_num = str(int(question_num) - 1)
       status = "game-over"
@@ -81,7 +117,10 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
     bg = "4cff95"
     return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     
-    
+  
+  # Checks if pass has been pressed
+  # There are three outcomes if this happens
+  # If they pass on last question the game will end
   elif ( guess == "pass" ):
     status = "pass"
     question_num = str(int(question_num) + 1)
@@ -90,11 +129,13 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
       status = "game-over"
       bg = "0"
       return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
-      
+    
+    # If they pass for a second time the pass button will change colour to warn them
     passed_on = str(int(passed_on) + 1)
     if ( int(passed_on) == 2 ):
       btn = "warning"
-      
+    
+    # If they pass for a third time, they will lose a life
     elif ( int(passed_on) == 3 ):
       lives = str(int(lives) - 1)
       if ( int(lives) == 0 ):
@@ -107,20 +148,21 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
       btn = "primary"
       bg = "FF4D4C"
       
-      
+    # If it's their first pass, nothing happens, they just move to the next question 
     else:
       btn = "primary"
       bg = "0"
     return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     
-  
+  # If guess is blank they will be told to enter a guess
   elif ( guess == "" ):
     status = "blank"
     guess = "0"
     bg = "0s"
     return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     
-    
+  # If they get the question wrong they will lose a life
+  # If they have no lives left the game will end
   else:
     status = "wrong"
     lives = str(int(lives) - 1)
@@ -131,6 +173,14 @@ def check_guess(answer, guess, lives, question_num, questions_score, passed_on, 
     bg = "FF4D4C"
     return url(status, question_num, questions_score, passed_on, btn, bg, guess, lives)
     
+    
+###############################################################
+    
+
+
+################################
+# END OF GAME #
+###############################
 
 # Add username and score to final_scores.txt  
 def check_final_scores(username):
@@ -183,6 +233,9 @@ def show_final_scores():
     users_and_scores_sorted = sorted(users_and_scores, key=getKey, reverse=True)
       
     return users_and_scores_sorted
+    
+###############################################################
+
 
 
 @app.route('/' , methods=["GET", "POST"])
@@ -199,7 +252,10 @@ def index():
     return render_template("index.html", userText=userText)
     
 
-
+# This is the main url route for the game
+# All of the info that is needed is passed to the url
+# Another way to pass info, is through sessions, although I choose to use this method.
+# It works well for this situation. If the information is more sensitive I would have use sessions
 @app.route('/questions/<status>/<question_num>/<questions_score>/<passed_on>/<lives>/<guess>/<btn>/<bg>/<username>', methods=["GET", "POST"])
 def questions(status, question_num, questions_score, passed_on, lives, guess, btn, bg, username):
   questions = get_questions()
@@ -233,7 +289,7 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
     )
     
     
-    
+  # Take the info form the form on the frontend.  
   if request.method == "POST":
     guess = request.form["answer"]
     
@@ -253,6 +309,8 @@ def questions(status, question_num, questions_score, passed_on, lives, guess, bt
     btn=btn,
     username=username
     ) 
+    
+    
     
     
 @app.route('/instructions')
