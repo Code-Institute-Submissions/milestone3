@@ -118,4 +118,4 @@ I then went to the url of the app: [visit the project website here](https://gues
 <br>
 
 ### Credits
-The questions were taken from: ... - I redesigned them in photoshop so they fitted the games aesthetics.
+The questions were taken from: [quizmasters.biz](https://www.quizmasters.biz/DB/Pic/Dingbats/Dingbats.html) - I redesigned them in photoshop so they fitted the games aesthetics.
